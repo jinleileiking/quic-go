@@ -95,7 +95,7 @@ func (h *receivedPacketHandler) IgnoreBelow(p protocol.PacketNumber) {
 	h.ignoreBelow = p
 	h.packetHistory.DeleteBelow(p)
 	if h.logger.Debug() {
-		h.logger.Debugf("\tIgnoring all packets below %#x.", p)
+		// h.logger.Debugf("\tIgnoring all packets below %#x.", p)
 	}
 }
 
@@ -153,7 +153,7 @@ func (h *receivedPacketHandler) maybeQueueAck(packetNumber protocol.PacketNumber
 				ackDelay := utils.MinDuration(ackSendDelay, time.Duration(float64(h.rttStats.MinRTT())*float64(ackDecimationDelay)))
 				h.ackAlarm = rcvTime.Add(ackDelay)
 				if h.logger.Debug() {
-					h.logger.Debugf("\tSetting ACK timer to min(1/4 min-RTT, max ack delay): %s (%s from now)", ackDelay, time.Until(h.ackAlarm))
+					// h.logger.Debugf("\tSetting ACK timer to min(1/4 min-RTT, max ack delay): %s (%s from now)", ackDelay, time.Until(h.ackAlarm))
 				}
 			}
 		} else {
@@ -196,7 +196,7 @@ func (h *receivedPacketHandler) GetAckFrame() *wire.AckFrame {
 		return nil
 	}
 	if h.logger.Debug() && !h.ackQueued && !h.ackAlarm.IsZero() {
-		h.logger.Debugf("Sending ACK because the ACK timer expired.")
+		// h.logger.Debugf("Sending ACK because the ACK timer expired.")
 	}
 
 	ack := &wire.AckFrame{
